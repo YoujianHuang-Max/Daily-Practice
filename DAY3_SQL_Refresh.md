@@ -1,4 +1,4 @@
-# Day 3 – SQL Refresh (Healthcare Example)
+# Day 3 – SQL Refresh
 
 ## 1. JOIN Types
 - LEFT JOIN keeps all records from the left table
