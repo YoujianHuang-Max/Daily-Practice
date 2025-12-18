@@ -6,10 +6,10 @@ from sqlalchemy import create_engine
 
 # --------------------------
 # Load Data
-# --------------------------
-patients = pd.read_csv("data/patients.csv")
-encounters = pd.read_csv("data/encounters.csv")
-labs = pd.read_csv("data/lab_results.csv")
+# engine = create_engine("postgresql+psycopg2://postgres:password@localhost:5432/healthcare")
+# patients = pd.read_sql("SELECT * FROM patients", engine)
+# encounters = pd.read_sql("SELECT * FROM encounters", engine)
+# labs = pd.read_sql("SELECT * FROM lab_results", engine)
 
 # --------------------------
 # Handle Missing Values
@@ -42,12 +42,10 @@ merged_has_date = pd.merge_asof(
     right_on='test_date',
     direction='forward'
 )
-merged_has_date['lab_link_type'] = 'time_based'
+
 
 # Merge encounters without date with most recent lab
-latest_labs = labs_clean.groupby('patient_id').tail(1)
-no_date_merged = no_date.merge(latest_labs, on='patient_id', how='left')
-no_date_merged['lab_link_type'] = 'patient_level_fallback'
+no_date_merged = no_date.merge(labs, on='patient_id', how='left')
 
 # Combine all
 full_df = pd.concat([merged_has_date, no_date_merged], ignore_index=True)
