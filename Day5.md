@@ -77,7 +77,38 @@ OLAP systems are designed for analytics, reporting, and decision support.
  - Denormalized or dimensional schemas
  - Optimized for complex SELECT queries
 
+-- Common OLAP Examples
+ - Data warehouses
+ - Business intelligence dashboards
+ - Healthcare analytics platforms
+ - Financial reporting systems
 
+-- OLAP Dimensional Model Example
+
+- Create Dimension Table
+CREATE TABLE dim_patient (
+  patient_id VARCHAR PRIMARY KEY,
+  birth_date DATE,
+  gender VARCHAR
+);
+
+- Create Fact Table
+CREATE TABLE fact_encounter (
+  encounter_id VARCHAR PRIMARY KEY,
+  patient_id VARCHAR REFERENCES dim_patient(patient_id),
+  visit_date DATE,
+  diagnosis VARCHAR,
+  length_of_stay INT
+);
+
+- Count visits per patient
+SELECT
+  p.patient_id,
+  COUNT(e.encounter_id) AS visit_count
+FROM dim_patient p
+LEFT JOIN fact_encounter e
+  ON p.patient_id = e.patient_id
+GROUP BY p.patient_id;
 
 ## 3. Dimensional Modeling Overview
 
@@ -92,3 +123,10 @@ Dimensional modeling consists of:
   Example: encounters, lab results
 
 ### Star Schema Structure
+   dim_patient
+          |
+          |
+   fact_encounter
+          |
+          |
+   fact_lab_result
