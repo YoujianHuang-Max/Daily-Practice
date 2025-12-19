@@ -110,23 +110,61 @@ LEFT JOIN fact_encounter e
   ON p.patient_id = e.patient_id
 GROUP BY p.patient_id;
 
-## 3. Dimensional Modeling Overview
+### 3.Role Boundary: OLTP, Data Engineering, and OLAP
 
-Dimensional modeling consists of:
+Understanding role boundaries helps clarify responsibilities across the data lifecycle and avoids common misconceptions.
 
- **Dimension tables (DIM)**  
-  Descriptive, relatively static data  
-  Example: patient, provider, date
+---
 
-- **Fact tables (FACT)**  
-  Events or measurements  
-  Example: encounters, lab results
+### OLTP Systems (Operational Layer)
 
-### Star Schema Structure
-  -- dim_patient
- --         |
-   --       |
-  -- fact_encounter
-  --        |
-  --        |
---   fact_lab_result
+OLTP systems support day-to-day business operations and transactional workloads.
+
+- Owned and maintained by application or backend engineering teams
+- Optimized for high-volume INSERT, UPDATE, and DELETE operations
+- Examples include hospital registration systems, appointment scheduling systems, and billing systems
+
+Data engineers typically **do not own or design OLTP systems**, but they rely on them as data sources.
+
+---
+
+### Data Engineering (Pipeline & Modeling Layer)
+
+Data engineers operate **between OLTP and OLAP systems**.
+
+Their responsibilities include:
+- Extracting data from OLTP systems
+- Building ETL or ELT pipelines
+- Cleaning, validating, and transforming raw data
+- Designing analytical schemas (fact and dimension tables)
+- Ensuring data quality, reliability, and low latency
+
+The goal is to convert operational data into **analytics-ready datasets**.
+
+---
+
+### OLAP Systems (Analytics Layer)
+
+OLAP systems are designed for analytics, reporting, and decision support.
+
+- Typically implemented as data warehouses
+- Data models are curated and maintained by data engineers
+- Optimized for complex SELECT queries and aggregations
+
+Data analysts, BI analysts, and data scientists:
+- Query OLAP tables using SQL
+- Build metrics, dashboards, and reports
+- Perform trend analysis and exploratory analysis
+
+Analysts work on **engineer-prepared data**, avoiding direct access to OLTP systems.
+
+---
+
+### Role Boundary Summary
+
+| Layer | System | Primary Owner | Typical Work |
+|----|----|----|----|
+| Operational | OLTP | Application Engineers | Transactions, CRUD |
+| Pipeline | ETL / ELT | Data Engineers | Ingestion, modeling |
+| Analytics | OLAP | Analysts / BI | Queries, insights |
+
