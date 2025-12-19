@@ -124,9 +124,9 @@ Dimensional modeling consists of:
 
 ### Star Schema Structure
   -- dim_patient
-          |
-          |
-   fact_encounter
-          |
-          |
-   fact_lab_result
+ --         |
+   --       |
+  -- fact_encounter
+  --        |
+  --        |
+--   fact_lab_result
