@@ -110,7 +110,7 @@ LEFT JOIN fact_encounter e
   ON p.patient_id = e.patient_id
 GROUP BY p.patient_id;
 
-### 3.Role Boundary: OLTP, Data Engineering, and OLAP
+## 3.Role Boundary: OLTP, Data Engineering, and OLAP
 
 Understanding role boundaries helps clarify responsibilities across the data lifecycle and avoids common misconceptions.
 
