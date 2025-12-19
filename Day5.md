@@ -123,7 +123,7 @@ Dimensional modeling consists of:
   Example: encounters, lab results
 
 ### Star Schema Structure
-   dim_patient
+  -- dim_patient
           |
           |
    fact_encounter
