@@ -1,4 +1,4 @@
-# Day 1 - Data Understanding & ETL Design
+# Day 7 - Data Understanding & ETL Design
 
 ## 1. Data Description
 This dataset contains raw healthcare metrics collected from patients, including demographics, clinical measurements, hospitalization data, lipid panel, metabolic indicators, behavioral and lifestyle factors, and genetic history.
